@@ -52,13 +52,23 @@ int main() {
     
     while(1) {
         int i;
+
+        float tx1 = vx1 - px;
+        float ty1 = vy1 - py;
+
+        float tx2 = vx2 - py;
+        float ty2 = vy2 - py;
+        
+        tx1 = tx1 * sinf(angle * 0.0174533) - ty1 * cosf(angle * 0.0174533);
+        tx2 = tx2 * sinf(angle * 0.0174533) - ty2 * cosf(angle * 0.0174533);
         
         SDL_LockSurface(surface);
    //     for(i = 250 ; i < 750 ; i++) { 
    //         vline(i , 0 , H , 0xFFFFFF , 0xFFFFFF , 0xFFFFFF); 
    //     }
         drawBlack();
-        drawLine(vx1 , vx2 , vy1 , vy2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
+        //drawLine(vx1 , vx2 , vy1 , vy2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
+        drawLine(tx1 , tx2 , ty1 , ty2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
         drawPlayer((int)px , (int)py , P , angle , 0x0000FF , 0x0000FF , 0x0000FF);
         SDL_UnlockSurface(surface);
         SDL_Flip(surface);
@@ -101,6 +111,10 @@ int main() {
         
         px = px + move_vec[0];
         py = py + move_vec[1];
+
+
+        
+
     }
 done:
     SDL_Quit();
