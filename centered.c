@@ -134,6 +134,8 @@ static void drawPlayer(int px , int py,  int playerSize , float angle , int top 
             drawLine(W/2 - playerSize/2 + i , W/2 - playerSize/2 + i , H/2 - playerSize/2 , H/2 + playerSize/2 , top , middle , bottom);
         }
 
+        drawLine(W/2 - playerSize/4 , W/2 - playerSize/4 , H/2 - playerSize/4 , H/2 - playerSize * 2, 0xFFFFFF , 0xFFFFFF , 0xFFFFFF);
+
 }
 
 static void drawLine(int x1 , int x2 , int y1 , int y2 , int top, int middle, int bottom) {
@@ -143,9 +145,18 @@ static void drawLine(int x1 , int x2 , int y1 , int y2 , int top, int middle, in
 
     if(x2 - x1 != 0) {
         delta = ((float)(y2 - y1) / (float)(x2 - x1));
+    } else if(x2 == x1) {
+        if(y1 > y2) {
+            vline(x1 , y2 , y1 , top , middle,  bottom);   
+        } else {
+            vline(x1 , y1 , y2 , top , middle,  bottom);   
+        }
+        return;
     } else {
         delta = max(y2-y1 , y1-y2);
     }
+
+    
 
     float countingY = y1; 
 
