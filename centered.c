@@ -109,25 +109,30 @@ done:
 
 
 static void drawPlayer(int px , int py,  int playerSize , float angle , int top , int middle, int bottom) {
-   
-    int i;
-    for(i = 0 ; i < playerSize ; i++) {
-        vline(px + i , py , py + playerSize , top , middle , bottom);
-    }
+//   
+//    int i;
+//    for(i = 0 ; i < playerSize ; i++) {
+//        vline(px + i , py , py + playerSize , top , middle , bottom);
+//    }
+//
+//    //This is one of the points we are drawing our angle line from.
+//    int centerX = px + (playerSize/2);  
+//    int centerY = py + (playerSize/2);
+//
+//    const int viewLength = 12; 
+//
+//    //Don't touch these numbers
+//    float specialAngle = angle * 0.00268512307 * 6.5;
+//
+//    int x2 = (int)(cos(specialAngle) * viewLength) + centerX;
+//    int y2 = -(int)(sin(specialAngle) * viewLength) + centerY;
+//
+//    drawLine(centerX , x2 , centerY , y2 , 0xFFFFFF , 0xFFFFFF , 0xFFFFFF);
 
-    //This is one of the points we are drawing our angle line from.
-    int centerX = px + (playerSize/2);  
-    int centerY = py + (playerSize/2);
-
-    const int viewLength = 12; 
-
-    //Don't touch these numbers
-    float specialAngle = angle * 0.00268512307 * 6.5;
-
-    int x2 = (int)(cos(specialAngle) * viewLength) + centerX;
-    int y2 = -(int)(sin(specialAngle) * viewLength) + centerY;
-
-    drawLine(centerX , x2 , centerY , y2 , 0xFFFFFF , 0xFFFFFF , 0xFFFFFF);
+        int i;
+        for(i = 0 ; i < playerSize ; i++) {
+            drawLine(W/2 - playerSize/2 + i , W/2 - playerSize/2 + i , H/2 - playerSize/2 , H/2 + playerSize/2 , top , middle , bottom);
+        }
 
 }
 
