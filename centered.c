@@ -68,7 +68,8 @@ int main() {
    //     }
         drawBlack();
         //drawLine(vx1 , vx2 , vy1 , vy2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
-        drawLine(tx1 , tx2 , ty1 , ty2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
+
+        drawLine(W/2 - tx1 , W/2 - tx2 , H/2 - ty1 , H/2 - ty2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
         drawPlayer((int)px , (int)py , P , angle , 0x0000FF , 0x0000FF , 0x0000FF);
         SDL_UnlockSurface(surface);
         SDL_Flip(surface);
