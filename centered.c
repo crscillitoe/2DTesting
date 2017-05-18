@@ -4,9 +4,13 @@
 #include <SDL/SDL.h>
 
 //Define Window Size
+
 #define W 600
 #define H 400
 #define P 10
+
+//Define important numbers
+#define TRansFormThing 432.781700167648
 
 #define min(a,b)             (((a) < (b)) ? (a) : (b)) // min: Choose smaller of two scalars.
 #define max(a,b)             (((a) > (b)) ? (a) : (b)) // max: Choose greater of two scalars.
@@ -71,7 +75,8 @@ int main() {
         drawBlack();
         //drawLine(vx1 , vx2 , vy1 , vy2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
 
-        drawLine(W/2 - tx1 , W/2 - tx2 , H/2 - tz1 , H/2 - tz2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
+        
+        drawLine(TRansFormThing - tx1 , TRansFormThing - tx2 , TRansFormThing - tz1 , TRansFormThing - tz2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
         drawPlayer((int)px , (int)py , P , angle , 0x0000FF , 0x0000FF , 0x0000FF);
         SDL_UnlockSurface(surface);
         SDL_Flip(surface);
