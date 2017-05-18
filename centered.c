@@ -36,14 +36,15 @@ static void drawBlack();
 static SDL_Surface* surface = NULL;
 
 int vx1 = 400;
-int vy1 = 300;
+int vy1 = 20;
 
 int vx2 = 70;
-int vy2 = 200;
+int vy2 = 20;
 
 float px = 50;
 float py = 50;
-float angle = 35;
+float angle = 0;
+float old_angle = 0;
 
 int main() {
     surface = SDL_SetVideoMode(W , H , 32 , 0);
@@ -120,6 +121,10 @@ int main() {
         px = px + move_vec[0];
         py = py + move_vec[1];
 
+        if(old_angle != angle){
+          printf("%f\n",angle);
+          old_angle = angle;
+        }
 
         
 
