@@ -36,15 +36,14 @@ static void drawBlack();
 static SDL_Surface* surface = NULL;
 
 int vx1 = 400;
-int vy1 = 20;
+int vy1 = 300;
 
 int vx2 = 70;
-int vy2 = 20;
+int vy2 = 200;
 
 float px = 50;
 float py = 50;
-float angle = 0;
-float old_angle = 0;
+float angle = 35;
 
 int main() {
     surface = SDL_SetVideoMode(W , H , 32 , 0);
@@ -76,7 +75,10 @@ int main() {
         drawBlack();
         //drawLine(vx1 , vx2 , vy1 , vy2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
 
-        
+//        drawLine(50 , 0 , 50 , 50 , 0xFFFFFF, 0xFFFFFF, 0xFFFFFF );
+//        drawLine(50 , 100 , 50 , 50 , 0xFFFFFF, 0xFFFFFF, 0xFFFFFF );
+//        drawLine(50 , 50 , 100 , 50 , 0xFFFFFF, 0xFFFFFF, 0xFFFFFF );
+//        drawLine(50 , 50 , 50 , 0 , 0xFFFFFF, 0xFFFFFF, 0xFFFFFF );
         drawLine(300 - tx1 , 300 - tx2 , 200 - tz1 , 200 - tz2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
         drawPlayer((int)px , (int)py , P , angle , 0x0000FF , 0x0000FF , 0x0000FF);
         SDL_UnlockSurface(surface);
@@ -121,10 +123,6 @@ int main() {
         px = px + move_vec[0];
         py = py + move_vec[1];
 
-        if(old_angle != angle){
-          printf("%f\n",angle);
-          old_angle = angle;
-        }
 
         
 
