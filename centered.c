@@ -76,7 +76,7 @@ int main() {
         //drawLine(vx1 , vx2 , vy1 , vy2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
 
         
-        drawLine(TRansFormThing - tx1 , TRansFormThing - tx2 , TRansFormThing - tz1 , TRansFormThing - tz2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
+        drawLine(300 - tx1 , 300 - tx2 , 200 - tz1 , 200 - tz2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
         drawPlayer((int)px , (int)py , P , angle , 0x0000FF , 0x0000FF , 0x0000FF);
         SDL_UnlockSurface(surface);
         SDL_Flip(surface);
