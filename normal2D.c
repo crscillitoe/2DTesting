@@ -4,9 +4,13 @@
 #include <SDL/SDL.h>
 
 //Define Window Size
-#define W 600
-#define H 400
-#define P 10
+#define W 2000
+#define H 1500
+#define P 50
+
+#define MOVEMENT_SPEED 10.4f
+
+#define PLAYER_COLOR 0xFFFF00
 
 #define min(a,b)             (((a) < (b)) ? (a) : (b)) // min: Choose smaller of two scalars.
 #define max(a,b)             (((a) > (b)) ? (a) : (b)) // max: Choose greater of two scalars.
@@ -59,7 +63,7 @@ int main() {
    //     }
         drawBlack();
         drawLine(vx1 , vx2 , vy1 , vy2 ,0xFFFFFF,0xFFFFFF,0xFFFFFF);
-        drawPlayer((int)px , (int)py , P , angle , 0x0000FF , 0x0000FF , 0x0000FF);
+        drawPlayer((int)px , (int)py , P , angle , PLAYER_COLOR , PLAYER_COLOR ,PLAYER_COLOR );
         SDL_UnlockSurface(surface);
         SDL_Flip(surface);
 
@@ -93,10 +97,10 @@ int main() {
         SDL_Delay(10);
 
          float move_vec[2] = {0.f, 0.f};
-        if(wsad[0]) { move_vec[0] += cosf(angle * 0.0174533)*1.2f; move_vec[1] -= sinf(angle * 0.0174533)*1.2f; }
-        if(wsad[1]) { move_vec[0] -= cosf(angle * 0.0174533)*1.2f; move_vec[1] += sinf(angle * 0.0174533)*1.2f; }
-        if(wsad[2]) { move_vec[0] -= sinf(angle * 0.0174533)*1.2f; move_vec[1] -= cosf(angle * 0.0174533)*1.2f; }
-        if(wsad[3]) { move_vec[0] += sinf(angle * 0.0174533)*1.2f; move_vec[1] += cosf(angle * 0.0174533)*1.2f; }
+        if(wsad[0]) { move_vec[0] += cosf(angle * 0.0174533)*MOVEMENT_SPEED; move_vec[1] -= sinf(angle * 0.0174533)*MOVEMENT_SPEED; }
+        if(wsad[1]) { move_vec[0] -= cosf(angle * 0.0174533)*MOVEMENT_SPEED; move_vec[1] += sinf(angle * 0.0174533)*MOVEMENT_SPEED; }
+        if(wsad[2]) { move_vec[0] -= sinf(angle * 0.0174533)*MOVEMENT_SPEED; move_vec[1] -= cosf(angle * 0.0174533)*MOVEMENT_SPEED; }
+        if(wsad[3]) { move_vec[0] += sinf(angle * 0.0174533)*MOVEMENT_SPEED; move_vec[1] += cosf(angle * 0.0174533)*MOVEMENT_SPEED; }
 
         
         px = px + move_vec[0];
@@ -112,14 +116,53 @@ static void drawPlayer(int px , int py,  int playerSize , float angle , int top 
    
     int i;
     for(i = 0 ; i < playerSize ; i++) {
-        vline(px + i , py , py + playerSize , top , middle , bottom);
+        //vline(px + i , py , py + playerSize , top , middle , bottom);
+
+        int originX = 0 - playerSize/2;
+        int originY = 0 - playerSize/2;
+        
+        printf("Degree : %f\n" , angle);
+
+        float specialAngle = angle * -0.00268512307 * 6.5;
+
+        int x1 = i - playerSize/2;
+        int x2 = i - playerSize/2;
+        int y1 = 0 - playerSize/2;
+        int y2 = 0 + playerSize/2;
+
+        int matrix1[3] = {x1 , y1 , 0};
+
+        int matrix2[3] = {x2 , y2 , 0};
+
+        int rotationMatrix[9] = {cos(specialAngle) , -sin(specialAngle) , 0 , 
+                                 sin(specialAngle) ,  cos(specialAngle) , 0 ,
+                                        0          ,         0          , 1};
+
+        int outputMatrix1[3] = {(x1 * cos(specialAngle)) - (y1 * sin(specialAngle)), 
+                                (x1 * sin(specialAngle)) + (y1 * cos(specialAngle)) , 0};
+
+        int outputMatrix2[3] = {(x2 * cos(specialAngle)) - (y2 * sin(specialAngle)), 
+                                (x2 * sin(specialAngle)) + (y2 * cos(specialAngle)) , 0};
+       
+        //Rotate 'specialAngle' radians clockwise 
+        int newX1 = outputMatrix1[0] + px + playerSize/2;
+        int newY1 = outputMatrix1[1] + py + playerSize/2;
+        int newX2 = outputMatrix2[0] + px + playerSize/2;
+        int newY2 = outputMatrix2[1] + py + playerSize/2;
+
+        //printf("X1 : %d\nX2 : %d\nY1 : %d\nY2 : %d\n" , newX1 , newX2 , newY1 , newY2);
+
+
+
+        drawLine(newX1 , newX2 , newY1 , newY2 , top , middle , bottom);
+
     }
 
     //This is one of the points we are drawing our angle line from.
     int centerX = px + (playerSize/2);  
     int centerY = py + (playerSize/2);
 
-    const int viewLength = 12; 
+    const int viewLength = 50; 
 
     //Don't touch these numbers
     float specialAngle = angle * 0.00268512307 * 6.5;
